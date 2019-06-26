@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Now You Rule This Site</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+
+  <!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body bgcolor="#282828">
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<div class="section-c1">
+    <div class="container">
+        <div class="row">
+            <div align='center'>
+                <?php
+                    session_start();
+                    if(!isset($_SESSION['username'])) {
+                        header('location:login.php'); 
+                    } else { 
+                    $username = $_SESSION['username'];
+                    }
+                    ?>
+                <p style="color:#FFF;">Hello <b><?php echo $username;?></b>, Have A Good Day.</p> 
+                <a class="button button-primary" href="proses_logout.php">LOG OUT</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section-c2">
+    <div class="container">
+        <div class="row">
+<form action="" method="post">
+    <table border="1" cellpadding="0" cellspacing="0">
+	<table style="border: 1px solid white; color:#FFF; width:50%">
+        <tr>
+            <td>
+	No.</td>
+            <td>Daftar Lagu</td>
+        </tr>
+	<tr>
+		<td>1.</td>
+		<td>Marion jola - Lupa</td>
+	</tr>
+        <?php if(mysqli_num_rows($query)>0){ ?>
+            <?php
+            $no=$offset+1;
+            $id_buku = 1;
+            while($data = mysqli_fetch_array($query)){
+                ?>
+                <tr>
+                    <td><?php echo $id_buku?></td>
+                    <td><?php echo $data["No."];?></td>
+                    <td><?php echo $data["Daftar Lagu"];?></td>
+                    <td>
+                        <a href="editbuku.php?id=<?php echo $data["id_buku"] ?>"> Edit </a>;
+                        <a href="Hapus.php?id=<?php echo $data["id_buku"] ?>"> Hapus </a>;
+                        </td>
+                </tr>
+                <?php $id_buku++; } ?>
+        <?php } ?>
+        <?php
+        for ($i=1;$i<=$jumlahhalaman;$i++){?>
+            <a href="home.php?page=tampilkan2&halaman=<?php echo $i; ?>">
+                <?php echo $i;?></a>
+        <?php } ?>
+    </table>
+
+</form>
+	</div>
+     </div>
+<div>
+      
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
+    
